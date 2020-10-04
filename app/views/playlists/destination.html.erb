@@ -1,4 +1,12 @@
 <div class="container">
   <h1>(2/3) Select the destination App</h1>
-  <div class="btn btn-success">Deezer</div>
+
+  <% unless @user.connector == 'spotify' %>
+    <div class="btn btn-success">Spotify</div>
+  <% end %>
+
+  <% unless @user.connector == 'deezer' %>
+    <div class="btn btn-success">Deezer</div>
+  <% end %>
+
 </div>

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :refresh_user_token!
 
   def current_user
-    User.find_or_create(request.remote_ip)
+    @user = User.find_or_create(request.remote_ip)
   end
 
   def refresh_user_token!

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :spotify_token
+  has_one :spotify_token, dependent: :destroy
 
   def self.find_or_create(ip)
     User.where(ip: ip).take || User.create(ip: ip)
@@ -7,13 +7,16 @@ class User < ApplicationRecord
 
   def update_token
     case connector
-    when 'spotify' then spotify_token.update(token)
-    # when 'deezer' then deezer_token.update(token)
+    when 'spotify' then spotify_token.update_token
+    # when 'deezer' then deezer_token.update_token
     end
   end
 
   def token
-    spotify_token.code
+    case connector
+    when 'spotify' then spotify_token.code
+    when 'deezer' then deezer_token
+    end
   end
 
   def valid_token?

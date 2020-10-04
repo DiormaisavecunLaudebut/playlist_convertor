@@ -4,11 +4,11 @@
     <div class="d-flex">
 
       <div>
-        <div class="h5"><%= playlist['name'] %></div>
-        <p><%= playlist['tracks']['total'] %> tracks</p>
+        <div class="h5"><%= playlist[:name] %></div>
+        <p><%= playlist[:track_count] %> tracks</p>
       </div>
 
-      <%= link_to destination_path playlist['id'] do %>
+      <%= link_to destination_path playlist[:id] do %>
         <div class="btn btn-primary">
           share
         </div>

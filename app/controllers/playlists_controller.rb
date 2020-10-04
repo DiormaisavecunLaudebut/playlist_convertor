@@ -1,6 +1,11 @@
 class PlaylistsController < ApplicationController
   def index
-    @playlists = SpotifyApiCall.get_all_playlists(current_user.token)
+    case @user.connector
+    when 'spotify' then playlists = SpotifyApiCall.get_all_playlists(@user.token)
+    when 'deezer' then playlists = DeezerApiCall.get_playlists(@user.deezer_token)
+    end
+
+    @playlists = helpers.uniformise_playlists(playlists, @user.connector)
   end
 
   def destination
