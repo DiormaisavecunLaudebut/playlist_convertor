@@ -9,6 +9,19 @@ class PlaylistsController < ApplicationController
   end
 
   def destination
-    playlist_id = params['format']
+    @playlist_id = params['info']['playlist_id']
+  end
+
+  def convert_playlist
+    playlist_id = params['info']['playlist_id']
+    destination = params['info']['destination']
+
+    case @user.connector
+    when 'deezer' then tracks = DeezerApiCall.get_playlist_track(@user.token, playlist_id)
+    when 'spotify' then tracks = SpotifyApiCall.get_all_playlist_tracks(@user.token, playlist_id)
+    end
+    raise
+
+    @tracks = helpers.uniformise_tracks(tracks)
   end
 end

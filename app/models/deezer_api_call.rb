@@ -8,6 +8,12 @@ class DeezerApiCall < ApplicationRecord
   def self.get_playlists(token)
     path = "https://api.deezer.com/user/me/playlists?output=json&access_token=#{token}"
 
-    HTTParty.get(path).parsed_response
+    HTTParty.get(path).parsed_response['data']
+  end
+
+  def self.get_playlist_track(token, playlist_id)
+    path = "https://api.deezer.com/playlist/#{playlist_id}/tracks?output=json&access_token=#{token}"
+
+    HTTParty.get(path).parsed_response['data']
   end
 end

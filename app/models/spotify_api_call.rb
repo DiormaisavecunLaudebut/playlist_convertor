@@ -73,6 +73,25 @@ class SpotifyApiCall < ApplicationRecord
     return playlists
   end
 
+  def self.get_playlist_tracks(token, playlist_id, offset = 0)
+    path = "https://api.spotify.com/v1/playlists/#{playlist_id}/tracks"
+    limit = 100
+    options = { limit: limit, offset: offset }
+
+    SpotifyApiCall.get(path, token, options)
+  end
+
+  def self.get_all_playlist_tracks(token, playlist_id, offset = 0, tracks = [])
+    resp = SpotifyApiCall.get_playlist_tracks(token, playlist_id, offset)
+
+    resp['items'].each { |item| tracks << item }
+
+    offset = ApplicationController.helpers.new_offset(offset, 100, resp['total'])
+    SpotifyApiCall.get_all_playlist_tracks(token, playlist_id, offset, tracks) if offset
+
+    return tracks
+  end
+
   def self.get_albums(token, offset = 0)
     path = 'https://api.spotify.com/v1/me/albums'
     limit = 50
@@ -84,14 +103,6 @@ class SpotifyApiCall < ApplicationRecord
   def self.get_liked_songs(token, offset = 0)
     path = 'https://api.spotify.com/v1/me/tracks'
     limit = 50
-    options = { limit: limit, offset: offset }
-
-    SpotifyApiCall.get(path, token, options)
-  end
-
-  def self.get_playlist_tracks(token, playlist_id, offset = 0)
-    path = "https://api.spotify.com/v1/playlists/#{playlist_id}/tracks"
-    limit = 100
     options = { limit: limit, offset: offset }
 
     SpotifyApiCall.get(path, token, options)

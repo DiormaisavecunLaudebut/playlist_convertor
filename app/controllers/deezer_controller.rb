@@ -7,10 +7,4 @@ class DeezerController < ApplicationController
 
     redirect_to playlists_path
   end
-
-  def generate_playlist
-    # search tracks using artist and track_name
-    # create Deezer playlist
-    # append playlist with tracks
-  end
 end

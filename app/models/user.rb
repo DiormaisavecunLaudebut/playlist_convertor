@@ -8,7 +8,6 @@ class User < ApplicationRecord
   def update_token
     case connector
     when 'spotify' then spotify_token.update_token
-    # when 'deezer' then deezer_token.update_token
     end
   end
 
