@@ -1,2 +1,6 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <%= link_to @spotify_url do %>
+    <div class="btn btn-success" id="spotify-auth">SPOTIFY</div>
+  <% end %>
+  <div class="btn btn-primary" id="deezer-auth">DEEZER</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>(1/3) Select the playlist</h1>
+  <% @playlists.each do |playlist| %>
+    <div class="d-flex">
+
+      <div>
+        <div class="h5"><%= playlist['name'] %></div>
+        <p><%= playlist['tracks']['total'] %> tracks</p>
+      </div>
+
+      <%= link_to destination_path playlist['id'] do %>
+        <div class="btn btn-primary">
+          share
+        </div>
+      <% end %>
+
+    </div>
+
+    <br>
+  <% end %>
+</div>
