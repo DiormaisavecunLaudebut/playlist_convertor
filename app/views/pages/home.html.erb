@@ -1,8 +1,12 @@
 <div class="container">
-  <%= link_to @spotify_url do %>
-    <div class="btn btn-success" id="spotify-auth">SPOTIFY</div>
-  <% end %>
-  <%= link_to @deezer_url do %>
-    <div class="btn btn-primary" id="deezer-auth">DEEZER</div>
-  <% end %>
+  <h1 class="text-center font-weight-bold">Share any playlist regardless of the Platform</h1>
+  <h5 class="text-center mt-4">Select the app you're listening your music on</h5>
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <%= link_to @spotify_url do %>
+      <img class="home-icon mt-3" src="https://www.flaticon.com/svg/static/icons/svg/2111/2111624.svg" alt="">
+    <% end %>
+    <%= link_to @deezer_url do %>
+      <img class="home-icon mt-3" src="https://www.smartphonefrance.info/news/SPF2018050301.png" alt="">
+    <% end %>
+  </div>
 </div>

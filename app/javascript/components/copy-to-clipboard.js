@@ -1,5 +1,5 @@
 const copyText = (id) => {
-  const text = document.getElementById(id).innerHTML;
+  const text = document.getElementById(id).value;
 
   window.focus()
   navigator.clipboard.writeText(text)

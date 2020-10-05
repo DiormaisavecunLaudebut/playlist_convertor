@@ -25,6 +25,13 @@ require("channels")
 // External imports
 import "bootstrap";
 import { copyText } from '../components/copy-to-clipboard'
+import { listenPlaylistHover } from '../components/playlist-row-hover'
+import { listenPlaylistSearch } from '../components/playlist-search'
+import { listenConvertPlaylistDestination } from '../components/convert-playlist-loader'
+
+listenPlaylistHover()
+listenPlaylistSearch()
+listenConvertPlaylistDestination()
 
 global.copyText = copyText
 

@@ -1,16 +1,18 @@
 <div class="container">
-  <h1>(2/3) Select the destination App</h1>
+  <h1 class="font-weight-bold text-center">(2/3) Select the destination App</h1>
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <section id="destination">
+      <% unless @user.connector == 'spotify' %>
+        <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'spotify'}) do %>
+          <img class="home-icon destination-icon mt-3" src="https://www.flaticon.com/svg/static/icons/svg/2111/2111624.svg" alt="">
+        <% end %>
+      <% end %>
 
-  <% unless @user.connector == 'spotify' %>
-    <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'spotify'}) do %>
-      <div class="btn btn-success">Spotify</div>
-    <% end %>
-  <% end %>
-
-  <% unless @user.connector == 'deezer' %>
-    <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'deezer'}) do %>
-      <div class="btn btn-success">Deezer</div>
-    <% end %>
-  <% end %>
-
+      <% unless @user.connector == 'deezer' %>
+        <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'deezer'}) do %>
+          <img class="home-icon destination-icon mt-3" src="https://www.smartphonefrance.info/news/SPF2018050301.png" alt="">
+        <% end %>
+      <% end %>
+    </section>
+  </div>
 </div>

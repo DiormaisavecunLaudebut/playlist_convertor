@@ -5,7 +5,7 @@ class PlaylistsController < ApplicationController
     when 'deezer' then playlists = DeezerApiCall.get_playlists(@user.deezer_token)
     end
 
-    @playlists = helpers.uniformise_playlists(playlists, @user.connector)
+    @playlists = helpers.uniformise_playlists(playlists, @user.connector).sort_by {|i| i[:name]}
   end
 
   def destination

@@ -1,0 +1,54 @@
+.playlist-cover {
+  width: 120px;
+  padding: 8px;
+}
+
+.inactive-color {
+  color: grey;
+}
+
+.link-enable {
+  font-weight: bold;
+  color: black;
+  font-size: 24px;
+}
+
+.step1-header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  padding: 0 20px;
+  background: #F4F4F4;
+}
+
+.row-selected {
+  background: black;
+}
+
+.text-selected {
+  color: white;
+  text-shadow: none;
+}
+
+.cover-filter {
+  filter: drop-shadow(-1px -1px 1px #afafaf);
+}
+
+.text-effect {
+  font-weight: 100;
+  text-shadow: -2px -2px 1px #afafaf;
+}
+
+.playlist-row {
+  box-shadow: 1px 2px 4px #afafaf;
+  width: 600px;
+}
+
+@media (max-width: 640px) {
+  .playlist-cover {
+    width: 90px;
+  }
+  .playlist-row {
+    width: 90vw;
+  }
+}
