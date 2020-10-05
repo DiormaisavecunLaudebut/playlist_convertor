@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
   end
 
   def refresh_user_token!
-    return if helpers.no_token_refresh_needed(current_user)
+    return if helpers.no_token_refresh_needed(@user)
 
-    current_user.update_token
+    @user.update_token
   end
 
   def super_user_token
