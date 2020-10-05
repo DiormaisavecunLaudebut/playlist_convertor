@@ -4,6 +4,9 @@ class SpotifyToken < ApplicationRecord
   def self.create_token(user, code)
     resp = SpotifyApiCall.get_token(code)
 
+    puts "fuck off"
+    puts resp
+
     SpotifyToken.create!(
       user: user,
       expires_at: Time.now + resp['expires_in'],
