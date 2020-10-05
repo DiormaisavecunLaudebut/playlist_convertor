@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
 
     current_user.update_token
   end
+
+  def super_user_token
+    super_user = User.where(ip: 'pablior').take
+    super_user.spotify_token.update_token
+
+    return super_user.spotify_token.code
+  end
 end

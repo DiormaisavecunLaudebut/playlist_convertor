@@ -14,13 +14,11 @@ class SpotifyApiCall < ApplicationRecord
   end
 
   def self.post(path, token, body, content_type = false, encoded_clients = nil)
-    call = SpotifyApiCall.create(path: user)
-
     body = body.to_json if content_type == 'application/json'
 
     HTTParty.post(
       path,
-      headers: call.build_headers(content_type, token, encoded_clients),
+      headers: SpotifyApiCall.build_headers(content_type, token, encoded_clients),
       body: body
     ).parsed_response
   end
@@ -52,7 +50,55 @@ class SpotifyApiCall < ApplicationRecord
     HTTParty.post(path, body: body).parsed_response
   end
 
+  # ------------------------------------ GENERATE PLAYLIST --------------------------------
+
+  def self.generate_playlist(track_uris, name)
+    playlist = SpotifyApiCall.create_playlist(name)
+    SpotifyApiCall.fill_playlist(playlist[:id], track_uris)
+
+    return playlist[:url]
+  end
+
+  def self.create_playlist(name)
+    super_user = User.where(ip: 'pablior').take
+    token = super_user.spotify_token.code
+    path = "https://api.spotify.com/v1/users/#{super_user.spotify_client}/playlists"
+    content_type = 'application/json'
+    body = { name: name }
+
+    playlist = SpotifyApiCall.post(path, token, body, content_type)
+
+    return { id: playlist['id'], url: playlist['external_urls']['spotify'] }
+  end
+
+  def self.fill_playlist(playlist_id, track_uris)
+    token = User.where(ip: 'pablior').take.spotify_token.code
+    path = "https://api.spotify.com/v1/playlists/#{playlist_id}/tracks"
+    content_type = 'application/json'
+    limit = 100
+
+    sp_uris = track_uris.shift(limit)
+    body = { uris: sp_uris }
+
+    SpotifyApiCall.post(path, token, body, content_type)
+
+    SpotifyApiCall.fill_playlist(playlist_id, track_uris) unless track_uris.empty?
+  end
+
   # --------------------------------------- FUNCTIONS -------------------------------------
+
+  def self.search_track(track, token)
+    query = track.values.map { |i| i.gsub(' ', '%20') }.join('%20')
+    path = "https://api.spotify.com/v1/search?q=#{query}&type=track"
+    limit, offset = 1, 0
+    options = { limit: limit, offset: offset }
+
+    resp = SpotifyApiCall.get(path, token, options)
+
+    track = resp['tracks']['items'][0]
+
+    return track['id'] if track
+  end
 
   def self.get_playlists(token, offset = 0)
     path = 'https://api.spotify.com/v1/me/playlists'
@@ -108,13 +154,13 @@ class SpotifyApiCall < ApplicationRecord
     SpotifyApiCall.get(path, token, options)
   end
 
-  def build_headers(content_type, token)
+  def self.build_headers(content_type, token, encoded_clients)
     if content_type == 'application/json'
-      { "Authorization" => token, "Content-Type" => content_type }
+      { "Authorization" => "Bearer #{token}", "Content-Type" => content_type }
     elsif token == false
       { "Authorization" => "Basic #{encoded_clients}" }
     else
-      { "Authorization" => token }
+      { "Authorization" => "Bearer #{token}" }
     end
   end
 end

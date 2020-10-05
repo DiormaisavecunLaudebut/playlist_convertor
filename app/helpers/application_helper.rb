@@ -36,7 +36,10 @@ module ApplicationHelper
   end
 
   def uniformise_tracks(tracks, connector)
-
+    case connector
+    when 'spotify' then tracks.map { |i| { name: i['track']['name'], artist: i['track']['artists'][0]['name'] } }
+    when 'deezer' then tracks.map { |i| { name: i['title'], artist: i['artist']['name'] } }
+    end
   end
 
   def new_offset(offset, limit, total)

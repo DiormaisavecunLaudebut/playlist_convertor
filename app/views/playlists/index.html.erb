@@ -8,7 +8,7 @@
         <p><%= playlist[:track_count] %> tracks</p>
       </div>
 
-      <%= link_to destination_path(info: { playlist_id: playlist[:id] }) do %>
+      <%= link_to destination_path(info: { playlist_id: playlist[:id], playlist_name: playlist[:name] }) do %>
         <div class="btn btn-primary">
           share
         </div>

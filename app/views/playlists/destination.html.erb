@@ -2,13 +2,13 @@
   <h1>(2/3) Select the destination App</h1>
 
   <% unless @user.connector == 'spotify' %>
-    <%= link_to convert_playlist_path(info: { playlist_id: @playlist_id, destination: 'spotify'}) do %>
+    <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'spotify'}) do %>
       <div class="btn btn-success">Spotify</div>
     <% end %>
   <% end %>
 
   <% unless @user.connector == 'deezer' %>
-    <%= link_to convert_playlist_path(info: { playlist_id: @playlist_id, destination: 'deezer'}) do %>
+    <%= link_to generate_playlist_path(info: { playlist_id: @playlist_id, playlist_name: @playlist_name, destination: 'deezer'}) do %>
       <div class="btn btn-success">Deezer</div>
     <% end %>
   <% end %>

@@ -24,6 +24,9 @@ require("channels")
 
 // External imports
 import "bootstrap";
+import { copyText } from '../components/copy-to-clipboard'
+
+global.copyText = copyText
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
