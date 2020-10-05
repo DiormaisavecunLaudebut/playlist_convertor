@@ -15,3 +15,10 @@
 .inner-shadow {
   box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.3) inset;
 }
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

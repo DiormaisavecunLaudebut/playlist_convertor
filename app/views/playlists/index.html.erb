@@ -13,7 +13,7 @@
         <div class="d-none"><%= link_to '', destination_path(info: { playlist_id: playlist[:id], playlist_name: playlist[:name] }) %></div>
         <img class="playlist-cover" src="<%= playlist[:cover_url] %>" alt="">
         <div class="playlist-details ml-3 d-flex justify-content-center flex-column">
-          <h3 class="title"> <%= playlist[:name] %> </h3>
+          <h3 class="title line-clamp"> <%= playlist[:name] %> </h3>
           <h5 class="tracks"> <%= playlist[:track_count] %> track(s)</h5>
         </div>
       </div>
